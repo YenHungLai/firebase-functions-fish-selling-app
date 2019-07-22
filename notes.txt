@@ -1,0 +1,189 @@
+// https.onCall() gives you a function that you can call directly
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Node.js export to Excel code, not working
+
+const excel = require('node-excel-export');
+const xlsx = require('node-xlsx');
+const xl = require('excel4node');
+
+exports.exportData = functions.https.onRequest((request, response) => {
+	response.set('Access-Control-Allow-Origin', '*');
+	let dataToExport = [];
+	// Get all data from a collection
+	firestore
+		.collection('orders')
+		.get()
+		.then(function(querySnapshot) {
+			querySnapshot.forEach(function(doc) {
+				// doc.data() is never undefined for query doc snapshots
+				console.log(doc.id, ' => ', doc.data());
+				dataToExport.push(doc.data());
+				console.log(dataToExport);
+			});
+		});
+});
+
+// const data = [
+// 	['col_heading1', 'col_heading2', 'col_heading3'],
+// 	['row1_val1', 'row1_val2', 'row1_val3'],
+// 	['row2_val1', 'row2_val2', 'row2_val3'],
+// 	['row3_val1', 'row3_val2', 'row3_val3']
+// ];
+// const buffer = xlsx.build([{ name: 'demo_sheet', data: data }]);
+// fs.appendFile('demo.xls', buffer, err => {
+// 	if (err) throw err;
+// 	console.log('Done...');
+// });
+
+// -------------------------------
+
+// Export config
+// const styles = {
+// 	headerDark: {
+// 		fill: {
+// 			fgColor: {
+// 				rgb: 'FF000000'
+// 			}
+// 		}
+// 	}
+// };
+//Array of objects representing heading rows (very top)
+// const heading = [
+// 	[
+// 		{ value: 'a1', style: styles.headerDark },
+// 		{ value: 'b1', style: styles.headerDark },
+// 		{ value: 'c1', style: styles.headerDark },
+// 		{ value: 'd1', style: styles.headerDark },
+// 		{ value: 'e1', style: styles.headerDark },
+// 		{ value: 'f1', style: styles.headerDark }
+// 	]
+// ];
+// const heading = [
+// 	[
+// 		{ value: 'a1' },
+// 		{ value: 'b1' },
+// 		{ value: 'c1' },
+// 		{ value: 'd1' },
+// 		{ value: 'e1' },
+// 		{ value: 'f1' }
+// 	]
+// ];
+
+//Here you specify the export structure
+// const specification = {
+// 	sender: {
+// 		displayName: 'Sender', // <- Here you specify the column header
+// 		// headerStyle: styles.headerDark, // <- Header style
+// 		// cellStyle: function(value, row) {
+// 		// 	// <- style renderer function
+// 		// 	// if the status is 1 then color in green else color in red
+// 		// 	// Notice how we use another cell value to style the current one
+// 		// 	return row.status_id == 1
+// 		// 		? styles.cellGreen
+// 		// 		: { fill: { fgColor: { rgb: 'FFFF0000' } } }; // <- Inline cell style is possible
+// 		// },
+// 		width: 120 // <- width in pixels
+// 	},
+// 	receiver: {
+// 		displayName: 'Receiver',
+// 		// headerStyle: styles.headerDark,
+// 		// cellFormat: function(value, row) {
+// 		// 	// <- Renderer function, you can access also any row.property
+// 		// 	return value == 1 ? 'Active' : 'Inactive';
+// 		// },
+// 		width: 120
+// 	},
+// 	receiver_email: {
+// 		displayName: 'Receiver Email',
+// 		// headerStyle: styles.headerDark,
+// 		// cellStyle: styles.cellPink, // <- Cell style
+// 		width: 220 // <- width in pixels
+// 	},
+// 	receiver_address: {
+// 		displayName: 'Receiver Address',
+// 		// headerStyle: styles.headerDark,
+// 		// cellStyle: styles.cellPink, // <- Cell style
+// 		width: 220 // <- width in pixels
+// 	},
+// 	item: {
+// 		displayName: 'Item',
+// 		// headerStyle: styles.headerDark,
+// 		// cellStyle: styles.cellPink, // <- Cell style
+// 		width: 120 // <- width in pixels
+// 	},
+// 	amount: {
+// 		displayName: 'Amount',
+// 		// headerStyle: styles.headerDark,
+// 		// cellStyle: styles.cellPink, // <- Cell style
+// 		width: '3' // <- width in pixels
+// 	}
+// };
+
+// const merges = [
+// 	{ start: { row: 1, column: 1 }, end: { row: 1, column: 10 } },
+// 	{ start: { row: 2, column: 1 }, end: { row: 2, column: 5 } },
+// 	{ start: { row: 3, column: 1 }, end: { row: 3, column: 10 } },
+// 	{ start: { row: 4, column: 1 }, end: { row: 4, column: 10 } },
+// 	{ start: { row: 5, column: 1 }, end: { row: 5, column: 10 } },
+// 	{ start: { row: 6, column: 1 }, end: { row: 6, column: 10 } }
+// ];
+
+// // Create the excel report.
+// // This function will return Buffer
+// const orders = excel.buildExport([
+// 	// <- Notice that this is an array. Pass multiple sheets to create multi sheet report
+// 	{
+// 		name: 'Orders', // <- Specify sheet name (optional)
+// 		heading: heading, // <- Raw heading array (optional)
+// 		merges: merges, // <- Merge cell ranges
+// 		specification: specification, // <- Report specification
+// 		data: dataToExport // <-- Report data
+// 	}
+// ]);
+
+// response.attachment('orders.xlsx');
+
+// ----------------------
+
+// const wb = new xl.Workbook();
+// const ws = wb.addWorksheet('Sheet 1');
+// // Create a reusable style
+// var style = wb.createStyle({
+// 	font: {
+// 		color: '#FF0800',
+// 		size: 12
+// 	},
+// 	numberFormat: '$#,##0.00; ($#,##0.00); -'
+// });
+
+// // Set value of cell A1 to 100 as a number type styled with paramaters of style
+// ws.cell(1, 1)
+// 	.number(100)
+// 	.style(style);
+
+// // Set value of cell B1 to 200 as a number type styled with paramaters of style
+// ws.cell(1, 2)
+// 	.number(200)
+// 	.style(style);
+
+// wb.write('ExcelFile.xlsx', function(err, stats) {
+// 	if (err) {
+// 		console.error(err);
+// 	} else {
+// 		console.log(stats); // Prints out an instance of a node.js fs.Stats object
+// 	}
+// });
