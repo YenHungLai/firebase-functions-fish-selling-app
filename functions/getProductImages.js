@@ -9,17 +9,27 @@ const { Storage } = require('@google-cloud/storage');
 const storage = new Storage();
 const bucket = storage.bucket('fish-selling-app.appspot.com');
 
-module.exports.getProductImages = (request, response) => {
-	const downloadURL = [];
-	bucket.getFiles(function(err, files) {
-		if (!err) {
-			// files is an array of File objects.
-			files.forEach(file => {
-				console.log(file);
-			});
-		}
-		console.log(downloadURL);
-	});
+module.exports.getProductImages = async (request, response) => {
+	// const [files] = await storage
+	// 	.bucket('fish-selling-app.appspot.com')
+	// 	.getFiles({ delimiter: 'imgs/' });
+
+	// console.log('Files:');
+	// files.forEach(file => {
+	// 	console.log(file.name);
+	// });
+
+	// Downloads the file
+	await storage
+		.bucket('fish-selling-app.appspot.com')
+		.file('background-carpentry-construction-326333.jpg')
+		.download({ destination: './temp.jpg' });
+
+	console.log(
+		`gs://${bucketName}/${srcFilename} downloaded to ${destFilename}.`
+	);
+
+	response.end();
 
 	// Get product images
 

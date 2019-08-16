@@ -1,4 +1,5 @@
-const firestore = require('./admin').firestore;
+const { firestore } = require('./admin');
+const bodyParser = require('body-parser');
 
 exports.createOrder = (request, response) => {
 	// Handle CORS error
