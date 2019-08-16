@@ -11,8 +11,12 @@ exports.createOrder = (request, response) => {
 	// Add order
 	firestore
 		.collection('orders')
-		.doc(`order-${new Date().toISOString()}`)
-		.set({ ...data, timestamp: new Date().toLocaleString() })
+		.doc()
+		.set({
+			...data,
+			'order-status': 'Pending',
+			timestamp: new Date().toLocaleString()
+		})
 		.then(function() {
 			response.send('Document successfully written!');
 		})
