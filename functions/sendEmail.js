@@ -24,6 +24,7 @@ exports.sendEmail = (request, response) => {
                 <li>Price: ${content['order-price']}</li>
                 <li>Receiver Address: ${content['receiver-address']}</li>
                 <li>Ordered at: ${content.timestamp}</li>
+                <li>Ordered Status: ${content['order-status']}</li>
             </ul>
         `;
 		const mailOptions = {
