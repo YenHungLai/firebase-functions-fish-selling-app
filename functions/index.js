@@ -8,6 +8,7 @@ const { sendPushNotification } = require('./sendPushNotification');
 const { deleteOrder } = require('./deleteOrder');
 const { sendEmail } = require('./sendEmail');
 const { getProductOptions } = require('./getProductOptions');
+const { getSingleUserOrders } = require('./getSingleUserOrders');
 
 module.exports = {
 	createOrder: functions.https.onRequest(createOrder),
@@ -17,5 +18,6 @@ module.exports = {
 	updateOrder: functions.https.onRequest(updateOrder),
 	deleteOrder: functions.https.onRequest(deleteOrder),
 	sendEmail: functions.https.onRequest(sendEmail),
-	getProductOptions: functions.https.onRequest(getProductOptions)
+	getProductOptions: functions.https.onRequest(getProductOptions),
+	getSingleUserOrders: functions.https.onRequest(getSingleUserOrders)
 };
