@@ -9,6 +9,7 @@ const { deleteOrder } = require('./deleteOrder');
 const { sendEmail } = require('./sendEmail');
 const { getProductOptions } = require('./getProductOptions');
 const { getSingleUserOrders } = require('./getSingleUserOrders');
+const { updateProductInfo } = require('./updateProductInfo');
 
 module.exports = {
 	createOrder: functions.https.onRequest(createOrder),
@@ -17,7 +18,8 @@ module.exports = {
 	sendPushNotification: functions.https.onRequest(sendPushNotification),
 	updateOrder: functions.https.onRequest(updateOrder),
 	deleteOrder: functions.https.onRequest(deleteOrder),
-	sendEmail: functions.https.onRequest(sendEmail),
+	// sendEmail: functions.https.onRequest(sendEmail),
 	getProductOptions: functions.https.onRequest(getProductOptions),
-	getSingleUserOrders: functions.https.onRequest(getSingleUserOrders)
+	getSingleUserOrders: functions.https.onRequest(getSingleUserOrders),
+	updateProductInfo: functions.https.onRequest(updateProductInfo)
 };
