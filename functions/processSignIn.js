@@ -10,7 +10,11 @@ exports.processSignIn = (request, response) => {
 		.auth()
 		.setCustomUserClaims(uid, {
 			// Set admin only if jacoblai1029@gmial.com signs in
-			admin: uid == 'kkaynBtQaUQYcIy2ZNVAq7j7eX62' ? true : false
+			admin:
+				uid === 'kkaynBtQaUQYcIy2ZNVAq7j7eX62' ||
+				uid === '2737z8dVW5bmRkehLtQGz39IztL2'
+					? true
+					: false
 		})
 		.then(() => {
 			// The new custom claims will propagate to the user's ID token the

@@ -19,7 +19,7 @@ exports.createOrder = (request, response) => {
 				response.send('Document successfully written!');
 			})
 			.catch(function(error) {
-				response.send('Error writing document: ', error);
+				response.send('Error writing document: ' + error);
 			});
 	});
 };
