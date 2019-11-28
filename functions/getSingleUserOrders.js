@@ -22,7 +22,7 @@ exports.getSingleUserOrders = (request, response) => {
 						Date.parse(b.data.timestamp) -
 						Date.parse(a.data.timestamp)
 				);
-				console.log(data);
+				// console.log(data);
 				response.json(data);
 			});
 	});

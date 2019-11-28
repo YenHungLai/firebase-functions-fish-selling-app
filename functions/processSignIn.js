@@ -1,7 +1,6 @@
 const admin = require('./admin').admin;
 
 exports.processSignIn = (request, response) => {
-	response.set('Access-Control-Allow-Origin', '*');
 	console.log(request.query);
 	// console.log(request.body);
 	// Remember to send data as JSON so object methods work
