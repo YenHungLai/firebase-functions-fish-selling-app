@@ -9,7 +9,11 @@ exports.updateProductInfo = (request, response) => {
 		firestore
 			.collection('products')
 			.doc()
-			.set(request.body);
+			.set(request.body)
+			.then(_ => response.json({ msg: 'Product updated successfully' }))
+			.catch(err =>
+				response.status(400).json({ msg: 'Bad request', err })
+			);
 	});
 };
 
